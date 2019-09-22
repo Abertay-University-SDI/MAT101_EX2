@@ -9,13 +9,15 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	// initialise game objects
 	play = true;
 
-	ballTexture.loadFromFile("gfx/rocket.png");
-	ball.setSize(sf::Vector2f(100, 100));
-	ball.setOrigin(ball.getSize().x/2.0f, ball.getSize().y/2.0f);
-	ball.setRotation(90);
-	ball.setPosition(0, 300);
-	ball.setTexture(&ballTexture);
-	ball.setInput(input);
+	rocketTexture.loadFromFile("gfx/rocket.png");
+	rocket.setInput(in);
+	rocket.setRenderWindow(hwnd);
+	rocket.setSize(sf::Vector2f(100, 100));
+	rocket.setOrigin(rocket.getSize().x/2.0f, rocket.getSize().y/2.0f);
+	rocket.setRotation(90);
+	rocket.setPosition(0, 300);
+	rocket.setTexture(&rocketTexture);
+	rocket.setText(&text);
 
 	if (!font.loadFromFile("font/arial.ttf"))
 	{
@@ -63,7 +65,7 @@ void Level::update(float dt)
 {
 	if (play)
 	{
-		ball.update(dt);
+		rocket.update(dt);
 		std::string xpos = std::to_string(sf::Mouse::getPosition(*window).x);
 		std::string ypos = std::to_string(sf::Mouse::getPosition(*window).y);
 		text.setString("Mouse: " + xpos + ", " + ypos);
@@ -74,7 +76,7 @@ void Level::update(float dt)
 void Level::render()
 {
 	beginDraw();
-	window->draw(ball);
+	rocket.Draw();
 	window->draw(text);
 	endDraw();
 }

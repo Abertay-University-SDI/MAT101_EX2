@@ -14,5 +14,7 @@ public:
 	// Returns the Vector magnitude
 	static float magnitude(sf::Vector2f vec);
 
+	static float dot(const sf::Vector2f & s1, const sf::Vector2f & s2);
+
 };
 

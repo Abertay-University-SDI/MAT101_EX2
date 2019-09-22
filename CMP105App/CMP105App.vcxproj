@@ -178,6 +178,7 @@
     <Text Include="README.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Force.h" />
     <ClInclude Include="Framework\Animation.h" />
     <ClInclude Include="Framework\AudioManager.h" />
     <ClInclude Include="Framework\Collision.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="Framework\Vector.h" />
     <ClInclude Include="KinematicSprite.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="Line.h" />
     <ClInclude Include="MySprite.h" />
     <ClInclude Include="Rocket.h" />
   </ItemGroup>
