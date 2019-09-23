@@ -21,6 +21,10 @@ float Vector::dot(const sf::Vector2f & s1, const sf::Vector2f & s2)
 	return s1.x*s2.x + s1.y*s2.y;
 }
 
+float Vector::determinte(const sf::Vector2f & s1, const sf::Vector2f & s2)
+{
+	return -s1.x * s2.y + s1.y * s2.x;
+}
 
 
 

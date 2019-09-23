@@ -15,7 +15,7 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	rocket.setSize(sf::Vector2f(100, 100));
 	rocket.setOrigin(rocket.getSize().x/2.0f, rocket.getSize().y/2.0f);
 	rocket.setRotation(90);
-	rocket.setPosition(0, 300);
+	rocket.setPosition(300, 300);
 	rocket.setTexture(&rocketTexture);
 	rocket.setText(&text);
 

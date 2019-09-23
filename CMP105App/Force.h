@@ -10,7 +10,8 @@ public:
 
 	sf::Vector2f force;
 	float age;
-	float maxAge = 10.0f;
+	float lifespan = 10.0f;
+	bool active = false;
 	
 	//for visual
 	sf::Vector2i startPos, endPos;
@@ -21,8 +22,9 @@ public:
 		age = _age;
 		startPos = start;
 		endPos = end;
-		maxAge = _maxAge;
+		lifespan = _maxAge;
+		active = true;
 	}
-	bool ReachedMaxAge() const { return age >= maxAge; }
+	bool ReachedMaxAge() const { return age >= lifespan; }
 };
 

@@ -1,8 +1,7 @@
 #pragma once
 #include "MySprite.h"
 #include "Line.h"
-
-class TransientForce;
+#include "Force.h"
 
 class Rocket :
 	public MySprite
@@ -29,7 +28,7 @@ protected:
 	//desired destination
 	sf::Vector2f forceFromInput;
 
-	const sf::Vector2f cForceGravity;
+	const sf::Vector2f cGravity;
 	const float cResitanceForceMagnitude;
 	float mass;
 	//flag to see if the sprite is currently moving
@@ -40,7 +39,7 @@ protected:
 	sf::Vector2i startPos, endPos;
 	sf::Text* pText;
 	static const int MAX_FORCES = 5;
-	TransientForce* forces[MAX_FORCES];
+	TransientForce forces[MAX_FORCES];
 
 	Line line;
 
