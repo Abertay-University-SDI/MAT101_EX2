@@ -23,7 +23,7 @@ protected:
 	float acceleration;
 
 	//here we are separating out speed and direction aka velocity
-	float speed;
+
 	sf::Vector2f direction;
 	//desired destination
 	sf::Vector2f forceFromInput;

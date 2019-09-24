@@ -5,11 +5,11 @@
 #define RAD2DEG (180.0/3.14159)
 
 Rocket::Rocket() :
-	cGravity(0, 9.8f), //note the axis in the 2D game are positive down and positive right so 9.8 in y is down
+	cGravity(0, 9.8), //note the axis in the 2D game are positive down and positive right so 9.8 in y is down
 	cResitanceForceMagnitude(0.1f),
 	pWindow(nullptr)
 {
-	speed = 50.f;
+	
 	acceleration = 50.f;
 	mass = 2; //mass must be positive
 	mass = fabs(mass);
@@ -42,13 +42,12 @@ void Rocket::update(float dt)
 	sf::Vector2f forceDirection = Vector::normalise(totalForce);
 
 	//Resistance like air resist/ friction etc always opposes the direction of the force, so we can subtract on it's magnitude
-
-	forceMag -= (cResitanceForceMagnitude); //fabs is a function float absolute value, as resistance is always an absolute value
+	//You will update this when we get to the chapter on friction
+	forceMag -= (cResitanceForceMagnitude); //resitance always opposes motion so it can be subtracted from the magnitude
 	if (forceMag < 0)
 	{
 		forceMag = 0;  //if we have some force to move the rocket but that is less than the resistance we do not have enough force to overcome resistance hence resetting forcemag to 0
 	}
-
 
 	//if F = ma then a = F/m
 	//sanity check, rocket must have some mass
@@ -57,10 +56,9 @@ void Rocket::update(float dt)
 		mass = 0.01f;
 	}
 
+	//calculating the acceleration  is it constant? what is different from last week?
 	acceleration = forceMag / mass;
 	direction = forceDirection; //the direction of the acceleration is the direction of the force as acceleration can occur in R3 and so may Force, while mass is always a scalar
-	
-	
 	
 
 	////1. Second way to move calc new v based on acceleration, apply that velocity assuming lim dt -> 0
@@ -69,18 +67,16 @@ void Rocket::update(float dt)
 	velocity = velocity + (direction * acceleration) * dt;	// accelerated towards the point
 	setPosition(getPosition() + velocity * dt);  //s = (u +v)/2  * t -> //our previous pos is incorportated with the getPosition and as lim dt -> 0 u -> v  v+v/2*dt 
 	
-	//get rotation angle
-	float dot = Vector::dot(Vector::normalise(velocity), sf::Vector2f(0, -1));
-	float det = Vector::determinte(Vector::normalise(velocity), sf::Vector2f(0, -1));
-	
-	setRotation(atan2(det, dot)*RAD2DEG);
-	
 	////2. same as 1 but cannot assume dt is small (although in practice in video games dt usually == 0.0166667s and is considered small
 	//sf::Vector2f u = velocity;
 	//velocity = velocity + (direction * acceleration) * dt;	// accelerated towards the point
 	//setPosition(getPosition() + (u + velocity)*0.5f*dt); //if we assume dt is of a significant value we take the average of last velocity and current
-}
 
+	//get rotation angle
+	float dot = Vector::dot(Vector::normalise(velocity), sf::Vector2f(0, -1));
+	float det = Vector::determinte(Vector::normalise(velocity), sf::Vector2f(0, -1));
+	setRotation(atan2(det, dot)*RAD2DEG);
+}
 
 void Rocket::handleInput(float dt)
 {
@@ -149,9 +145,6 @@ void Rocket::updateForces(float dt)
 		}
 	}
 	
-	
-
-	
 }
 void Rocket::addForce(sf::Vector2f f, sf::Vector2i s, sf::Vector2i e)
 {
@@ -179,6 +172,8 @@ void Rocket::addForce(sf::Vector2f f, sf::Vector2i s, sf::Vector2i e)
 			}
 		}
 	}
+	//MAT101 TASK
+	//remove the = 0 line if you want to use up to five forces at a time, gets confusing
 	tempForceIndex = 0;
 	//create a new force
 	forces[tempForceIndex].Set(f, 0, s, e);
@@ -190,7 +185,10 @@ void Rocket::addForce(sf::Vector2f f, sf::Vector2i s, sf::Vector2i e)
 void Rocket::Draw()
 {
 	pWindow->draw(*this);
+	//draws a line
 	line.Draw(pWindow);
+	//if wanted to move line code to forces 
+	//loop through forces here and call forces[i].line.Draw(pWindow); 
 }
 
 
